@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkinVision AI</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+<body>
+    <div id="app">
+        <!-- Welcome Screen -->
+        <div class="screen active" id="welcome-screen">
+            <h1>Welcome to SkinVision AI</h1>
+            <button onclick="nextScreen('user-details-screen')">Start</button>
+        </div>
+
+        <!-- User Details Screen -->
+        <div class="screen" id="user-details-screen">
+            <h2>Please enter your details</h2>
+            <input type="text" id="name" placeholder="Name">
+            <input type="number" id="age" placeholder="Age">
+            <select id="gender">
+                <option value="" disabled selected>Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+            <button onclick="nextScreen('skin-texture-screen')">Next</button>
+        </div>
+
+        <!-- Skin Texture Screen -->
+        <div class="screen" id="skin-texture-screen">
+            <h2>What is your skin texture?</h2>
+            <button onclick="selectOption('texture', 'oily', this)">Oily</button>
+            <button onclick="selectOption('texture', 'dry', this)">Dry</button>
+            <button onclick="selectOption('texture', 'combination', this)">Combination</button>
+            <button onclick="nextScreen('skin-type-screen')">Next</button>
+        </div>
+
+        <!-- Skin Type Screen -->
+        <div class="screen" id="skin-type-screen">
+            <h2>What is your skin type?</h2>
+            <button onclick="selectOption('type', 'normal', this)">Normal</button>
+            <button onclick="selectOption('type', 'sensitive', this)">Sensitive</button>
+            <button onclick="nextScreen('skin-concern-screen')">Next</button>
+        </div>
+
+        <!-- Skin Concern Screen -->
+        <div class="screen" id="skin-concern-screen">
+            <h2>Which of these describe your concern?</h2>
+            <button onclick="selectOption('concern', 'acne', this)">Acne</button>
+            <button onclick="selectOption('concern', 'openPores', this)">Open Pores</button>
+            <button onclick="selectOption('concern', 'pigmentation', this)">Pigmentation</button>
+            <button onclick="selectOption('concern', 'acneScars', this)">Acne Scars</button>
+            <button onclick="selectOption('concern', 'darkCircles', this)">Dark Circles</button>
+            <button onclick="nextScreen('selfie-instructions-screen')">Proceed to Selfie</button>
+            <button onclick="skipSelfie()">Skip Selfie</button>
+        </div>
+
+        <!-- Selfie Instructions Screen -->
+        <div class="screen" id="selfie-instructions-screen">
+            <h2>Selfie Instructions</h2>
+            <ul>
+                <li>Remove eyeglasses or specs.</li>
+                <li>Remove makeup, if applied.</li>
+                <li>Keep your face in a well-lit area.</li>
+            </ul>
+            <button onclick="openCamera()">Open Camera</button>
+        </div>
+
+        <!-- Camera Screen -->
+        <div class="screen" id="camera-screen">
+            <h2>Capture Your Selfie</h2>
+            <video id="camera" autoplay playsinline></video>
+            <canvas id="canvas" style="display:none;"></canvas>
+            <button onclick="captureImage()">Capture Image</button>
+            <button id="proceed-button" style="display:none;" onclick="showRecommendations()">Proceed to Recommendations</button>
+        </div>
+
+        <!-- Recommendations Screen -->
+        <div class="screen" id="recommendation-screen">
+            <h2>Personalized Recommendations</h2>
+            <div id="recommendation-list"></div>
+            <button onclick="nextScreen('skincare-tips-screen')">View Skincare Tips</button>
+        </div>
+
+        <!-- Skincare Tips Screen -->
+        <div class="screen" id="skincare-tips-screen">
+            <h2>Skincare Tips</h2>
+            <ul>
+                <li><strong>Regular Skin Checks:</strong> Use AI tools to monitor moles and spots for changes.</li>
+                <li><strong>Hydration:</strong> Keep your skin hydrated using moisturizers with hyaluronic acid or glycerin.</li>
+                <li><strong>Sun Protection:</strong> Always apply a broad-spectrum sunscreen with SPF 30 or higher.</li>
+                <li><strong>Avoid Tanning:</strong> Avoid tanning beds and excessive sun exposure.</li>
+                <li><strong>Gentle Cleansing:</strong> Use a pH-balanced cleanser and avoid harsh scrubs.</li>
+                <li><strong>Spot Treatment:</strong> For blemishes, use treatments with salicylic acid or benzoyl peroxide.</li>
+                <li><strong>Healthy Lifestyle:</strong> Eat antioxidant-rich foods to support skin health.</li>
+                <li><strong>Limit Alcohol and Tobacco:</strong> Reduce or avoid smoking and excessive alcohol.</li>
+                <li><strong>Sleep and Stress Management:</strong> Get adequate sleep and manage stress.</li>
+                <li><strong>Consult a Dermatologist:</strong> Seek professional advice for any unusual skin changes.</li>
+            </ul>
+            <button onclick="nextScreen('thank-you-screen')">Finish</button>
+        </div>
+
+        <!-- Thank You Screen -->
+        <div class="screen" id="thank-you-screen">
+            <h2>Thank you for using SkinVision AI!</h2>
+            <p>Your skincare recommendations have been provided.</p>
+            <button onclick="location.reload()">Start Over</button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
